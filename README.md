@@ -32,16 +32,15 @@ AI-powered renewal and pricing intelligence system for SaaS that:
 
 ## 🛠 Tech 
 
-AI / ML: Agentic AI · Generative AI · LLMs ·RAG · MLOps· Deep Learning · TensorFlow· AutoML · Oracle Machine Learning· Oracle AI Agent Studio, CODEX and CLAUDE
-Data Platform: Apache Spark · Kafka· OCI Dataflow · Big Data Pipelines · Vector Databases · Graph Database· Oracle Autonomous Database · Golden-Record / Entity Resolution
-Cloud / Architecture: Oracle Cloud Infrastructure (OCI) · Cloud-Native Architecture· Microservices · Distributed Systems · SaaS / PaaS · REST · SOA
-Engineering Practices: CI/CD· Developer Experience Platform Engineering · Operational Excellence · Agile / Scrum · OKR Execution
-Enterprise Domain: Oracle CPQ Cloud · Oracle Fusion Order Management · Oracle CX Subscription Management · Oracle Fusion ERP · Salesforce · Oracle Integration Cloud (OIC)
-Languages: Python · Java · SQL · PL/SQL · XML
-
+- AI / ML: Agentic AI · Generative AI · LLMs ·RAG · MLOps· Deep Learning · TensorFlow· AutoML · Oracle Machine Learning· Oracle AI Agent Studio, CODEX and CLAUDE
+- Data Platform: Apache Spark · Kafka· OCI Dataflow · Big Data Pipelines · Vector Databases · Graph Database· Oracle Autonomous Database 
+- Cloud / Architecture: Oracle Cloud Infrastructure (OCI) · Cloud-Native Architecture· Microservices · Distributed Systems · SaaS / PaaS · REST · SOA 
+- Enterprise Domain: Oracle CPQ Cloud · Oracle Fusion Order Management · Oracle CX Subscription Management · Oracle Fusion ERP · Salesforce · Oracle Integration Cloud (OIC)
+- Languages: Python · Java · SQL · PL/SQL 
+- Engineering Practices: CI/CD· Developer Experience Platform Engineering · Operational Excellence · Agile / Scrum · OKR Execution
 
 ---
 
 ## 📫 Connect
 
-- LinkedIn: <your-link>
+- LinkedIn: https://www.linkedin.com/in/saralabiswal/
