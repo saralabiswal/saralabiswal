@@ -19,7 +19,7 @@
 ## About
 
 I build AI/ML platforms that generate revenue — not just predictions.
-Hands-on engineering leader who architects production systems personally while setting technical direction for a 40+ person global org.
+Hands-on engineering leader who architects production systems personally while setting technical direction for a 20+ person global org.
 
 17+ years at Oracle shipping two flagship AI platforms at enterprise scale:
 
