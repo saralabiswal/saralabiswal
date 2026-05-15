@@ -50,8 +50,8 @@ Six governed layers composable by any product team through a stable SDK:
 **One `trace_id` reconstructs every decision for regulatory replay.**
 
 ```bash
-git clone https://github.com/saralabiswal/banking-agentic-platform
-cd banking-agentic-platform && make install && make docker-up
+git clone https://github.com/saralabiswal/banking-agentic-ai-platform
+cd banking-agentic-ai-platform && make install && make docker-up
 cp .env.example .env && make demo
 # Runs end-to-end — no API key required
 ```
