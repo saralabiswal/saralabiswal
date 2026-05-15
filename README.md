@@ -152,7 +152,7 @@ Full MLOps stack: feature stores · training pipelines · real-time + batch infe
 
 | | |
 |:---:|:---:|
-| **17+** years engineering leadership | **40+** person global org (US + India) |
+| **17+** years engineering leadership | **20+** person global org (US + India) |
 | **9,000+** customers at day-one platform launch | **600+** enterprise clients in production |
 | **50+** countries served | **6** production ML models at GA |
 | **30%** renewal cycle compression | **28%** quote processing efficiency improvement |
@@ -186,7 +186,7 @@ Industries: Enterprise SaaS · AI-native companies · Revenue/GTM platforms · C
 
 <div align="center">
 
-**Open to conversations about AI platform leadership roles.**
+**Open to conversations about AI platform Architecture.**
 
 [![LinkedIn](https://img.shields.io/badge/Connect%20on%20LinkedIn-0a66c2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/saralabiswal)
 [![Email](https://img.shields.io/badge/saralabiswal%40gmail.com-ea4335?style=flat-square&logo=gmail&logoColor=white)](mailto:saralabiswal@gmail.com)
