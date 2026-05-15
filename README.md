@@ -32,7 +32,7 @@ The hard part isn't the model — it's the integration layer. I solved the cross
 
 ## Featured Project
 
-### 🏦 [Banking Agentic AI Platform](https://github.com/saralabiswal/banking-agentic-platform)
+### 🏦 [Banking Agentic AI Platform](https://github.com/saralabiswal/banking-agentic-ai-platform)
 
 > A cloud-agnostic, production-grade Agentic AI platform for banking decisions — open source reference implementation.
 
