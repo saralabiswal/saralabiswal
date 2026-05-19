@@ -196,7 +196,7 @@ I build the platforms that make AI commercially accountable — not just technic
 
 ---
 
-**Open to conversations about VP / Director of Engineering and AI Platform Architecture roles.**
+**Open to conversations about AI platform architecture, agentic AI systems, and engineering leadership.**
 
 [![LinkedIn](https://img.shields.io/badge/Connect%20on%20LinkedIn-0a66c2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/saralabiswal)
 [![Email](https://img.shields.io/badge/saralabiswal%40gmail.com-ea4335?style=flat-square&logo=gmail&logoColor=white)](mailto:saralabiswal@gmail.com)
