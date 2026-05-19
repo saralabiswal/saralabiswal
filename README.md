@@ -1,10 +1,6 @@
-
-
-<div align="center">
-
 # Sarala Biswal
 
-**VP / Director of Engineering · AI/ML Platforms · Agentic AI · Enterprise Scale**
+**VP / Director of Engineering · AI Platform Architect · Agentic AI · MCP · MLOps · Enterprise Scale**
 
 *Belmont, CA · He/Him*
 
@@ -12,14 +8,12 @@
 [![Email](https://img.shields.io/badge/Email-saralabiswal%40gmail.com-ea4335?style=flat-square&logo=gmail&logoColor=white)](mailto:saralabiswal@gmail.com)
 [![Profile Views](https://komarev.com/ghpvc/?username=saralabiswal&style=flat-square&color=3b82f6&label=Profile+Views)](https://github.com/saralabiswal)
 
-</div>
-
 ---
 
 ## About
 
 I build AI/ML platforms that generate revenue — not just predictions.
-Hands-on engineering leader who architects production systems personally while setting technical direction for a 20+ person global org.
+Hands-on engineering leader who architects production systems personally while setting technical direction for a 40+ person global org.
 
 17+ years at Oracle shipping two flagship AI platforms at enterprise scale:
 
@@ -30,7 +24,7 @@ The hard part isn't the model — it's the integration layer. I solved the cross
 
 ---
 
-## Featured Project
+## Featured Projects
 
 ### 🏦 [Banking Agentic AI Platform](https://github.com/saralabiswal/banking-agentic-ai-platform)
 
@@ -39,7 +33,7 @@ The hard part isn't the model — it's the integration layer. I solved the cross
 Six governed layers composable by any product team through a stable SDK:
 
 | Layer | Responsibility | Key Pattern |
-|-------|---------------|-------------|
+| --- | --- | --- |
 | **L1 Context Assembly** | Live customer profile in < 200ms | Parallel async fetch · graceful degradation |
 | **L2 Vector Search** | Right policy at decision time | Hybrid dense + BM25 · RRF merge · cross-encoder rerank |
 | **L3 Orchestration** | Hub-and-spoke agents · propose only | Tool authorization in code · schema-validated outputs |
@@ -65,40 +59,61 @@ cp .env.example .env && make demo
 
 ---
 
+### 🧪 [AgentOps Evaluation Framework](https://github.com/saralabiswal/agentops-eval-llmops)
+
+> Evaluation harness for governed LLM agents — because production AI without evals is just a demo you shipped.
+
+Most agentic AI systems stop at building the agent. This framework answers the question every production deployment eventually faces: **how do you know it's still working correctly next month?**
+
+| Component | What it does |
+| --- | --- |
+| **YAML test cases** | Benchmark scenarios for payment risk, billing disputes, churn prevention |
+| **Independent judge** | Separate judge backend (mock / Ollama / LiteLLM) — not the same model being evaluated |
+| **Scoring dimensions** | Faithfulness · relevance · context precision · consistency · composite quality gate |
+| **SUT backends** | Mock · Ollama · cloud API · banking platform adapter — swap without changing test cases |
+| **Reports** | HTML + JSON · SSE streaming · side-by-side model comparison |
+
+Designed to plug directly into the banking platform as its evaluation layer — same `trace_id`, same scenarios, same policy boundaries.
+
+```bash
+make install && cp .env.example .env
+make demo                         # mock backend, no API key required
+make dev                          # API → http://localhost:8001
+```
+
+[![Python](https://img.shields.io/badge/Python-3.12-3b82f6?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-10b981?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![LiteLLM](https://img.shields.io/badge/LiteLLM-multi--provider-6366f1?style=flat-square)](https://litellm.ai)
+[![Ollama](https://img.shields.io/badge/Ollama-local-0ea5e9?style=flat-square)](https://ollama.com)
+
+---
+
 ## Production Platforms (Oracle, 2009–Present)
 
-<table>
-<tr>
-<td width="50%" valign="top">
+| Agentic AI on CPQ | Unity CDP AI/ML Platform |
+| --- | --- |
+| **MCP-powered multi-agent orchestration** | **6 production models · 9,000+ customers · day-one GA** |
+| Renewal Agent — autonomous risk scoring + optimized proposal generation | Next Best Action / Offer |
+| Quote Generation Agent — real-time margin enforcement + cross-sell intelligence | Churn & Engagement Propensity |
+| AI Agent Studio — agent lifecycle, tool routing, policy enforcement across the full commercial lifecycle | Customer Lifetime Value (CLV) |
+| Cross-vendor CRM integration layer: Salesforce + MS Dynamics 365 → Oracle CPQ Cloud + Fusion OM + Subscription Management | RFM Segmentation |
+| | Multi-Touch Attribution (MTA) |
+| | Media Mix Modeling (MMM) |
+| **30% renewal cycle compression · 28% quote processing improvement** | Full MLOps stack: feature stores · training pipelines · real-time + batch inference · embedding pipelines · vector DBs · drift detection · responsible AI governance |
 
-### Agentic AI on CPQ
-**MCP-powered multi-agent orchestration**
+---
 
-- Renewal Agent — autonomous risk scoring + optimized proposal generation
-- Quote Generation Agent — real-time margin enforcement + cross-sell intelligence
-- AI Agent Studio — agent lifecycle, tool routing, policy enforcement across the full commercial lifecycle
-- Cross-vendor CRM integration layer: Salesforce + MS Dynamics 365 → Oracle CPQ Cloud + Fusion OM + Subscription Management
+## Open Source Portfolio
 
-**30% renewal cycle compression · 28% quote processing improvement**
-
-</td>
-<td width="50%" valign="top">
-
-### Unity CDP AI/ML Platform
-**6 production models · 9,000+ customers · day-one GA**
-
-- Next Best Action / Offer
-- Churn & Engagement Propensity
-- Customer Lifetime Value (CLV)
-- RFM Segmentation
-- Multi-Touch Attribution (MTA)
-- Media Mix Modeling (MMM)
-
-Full MLOps stack: feature stores · training pipelines · real-time + batch inference · embedding pipelines · vector DBs · drift detection · responsible AI governance
-
-</td>
-</tr>
-</table>
+| Layer | Repo | What it demonstrates |
+| --- | --- | --- |
+| **Platform** | [banking-agentic-ai-platform](https://github.com/saralabiswal/banking-agentic-ai-platform) | 6-layer governed agentic pipeline · guardrails · A/B · full audit |
+| **Platform** | [agentic-cdp-mlops](https://github.com/saralabiswal/agentic-cdp-mlops) | 8-stage ML platform · model registry · governed promotion lifecycle |
+| **Ops** | [agentops-eval-llmops](https://github.com/saralabiswal/agentops-eval-llmops) | LLM agent evaluation · judge/SUT separation · faithfulness scoring |
+| **Domain Agent** | [agentic-revenue-cpq](https://github.com/saralabiswal/agentic-revenue-cpq) | MCP integration · LangGraph · Oracle CPQ-style quote lifecycle |
+| **Domain Agent** | [agentic-saas-renewal](https://github.com/saralabiswal/agentic-saas-renewal) | Guarded LLM decisioning · ML risk scoring · full evidence audit |
+| **Domain Agent** | [agentic-hr-onboarding-mcp](https://github.com/saralabiswal/agentic-hr-onboarding-mcp) | MCP connectors · Workday/Jira/Slack/Salesforce · idempotency |
+| **Domain Agent** | [agentic-ecommerce-rag](https://github.com/saralabiswal/agentic-ecommerce-rag) | RAG · LangGraph · multi-agent · quality gate · human feedback |
 
 ---
 
@@ -114,51 +129,48 @@ Full MLOps stack: feature stores · training pipelines · real-time + batch infe
 ![LangChain](https://img.shields.io/badge/LangChain-3b82f6?style=flat-square)
 ![LangGraph](https://img.shields.io/badge/LangGraph-3b82f6?style=flat-square)
 ![MLOps](https://img.shields.io/badge/MLOps-3b82f6?style=flat-square)
+![LLMOps](https://img.shields.io/badge/LLMOps-3b82f6?style=flat-square)
 ![Responsible AI](https://img.shields.io/badge/Responsible%20AI-3b82f6?style=flat-square)
 ![Vector DBs](https://img.shields.io/badge/Vector%20Databases-3b82f6?style=flat-square)
 
 **Languages & Frameworks**
 
-![Python](https://img.shields.io/badge/Python-3776ab?style=flat-square&logo=python&logoColor=white)
-![Java](https://img.shields.io/badge/Java-f89820?style=flat-square&logo=openjdk&logoColor=white)
-![SQL](https://img.shields.io/badge/SQL-4479a1?style=flat-square&logo=postgresql&logoColor=white)
-![Apache Spark](https://img.shields.io/badge/Apache%20Spark-e25a1c?style=flat-square&logo=apachespark&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
-![React](https://img.shields.io/badge/React-20232a?style=flat-square&logo=react&logoColor=61dafb)
+[![Python](https://img.shields.io/badge/Python-3776ab?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![Java](https://img.shields.io/badge/Java-f89820?style=flat-square&logo=openjdk&logoColor=white)](https://java.com)
+[![SQL](https://img.shields.io/badge/SQL-4479a1?style=flat-square&logo=postgresql&logoColor=white)](https://postgresql.org)
+[![Apache Spark](https://img.shields.io/badge/Apache%20Spark-e25a1c?style=flat-square&logo=apachespark&logoColor=white)](https://spark.apache.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-20232a?style=flat-square&logo=react&logoColor=61dafb)](https://react.dev)
 
 **Cloud & Infrastructure**
 
-![OCI](https://img.shields.io/badge/OCI-f80000?style=flat-square&logo=oracle&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232f3e?style=flat-square&logo=amazonaws&logoColor=white)
-![GCP](https://img.shields.io/badge/GCP-4285f4?style=flat-square&logo=googlecloud&logoColor=white)
-![Azure](https://img.shields.io/badge/Azure-0078d4?style=flat-square&logo=microsoftazure&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ed?style=flat-square&logo=docker&logoColor=white)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-326ce5?style=flat-square&logo=kubernetes&logoColor=white)
+[![OCI](https://img.shields.io/badge/OCI-f80000?style=flat-square&logo=oracle&logoColor=white)](https://oracle.com/cloud)
+[![AWS](https://img.shields.io/badge/AWS-232f3e?style=flat-square&logo=amazonaws&logoColor=white)](https://aws.amazon.com)
+[![GCP](https://img.shields.io/badge/GCP-4285f4?style=flat-square&logo=googlecloud&logoColor=white)](https://cloud.google.com)
+[![Azure](https://img.shields.io/badge/Azure-0078d4?style=flat-square&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com)
+[![Docker](https://img.shields.io/badge/Docker-2496ed?style=flat-square&logo=docker&logoColor=white)](https://docker.com)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-326ce5?style=flat-square&logo=kubernetes&logoColor=white)](https://kubernetes.io)
 
 **Data & ML Stack**
 
-![Kafka](https://img.shields.io/badge/Kafka-231f20?style=flat-square&logo=apachekafka&logoColor=white)
-![Qdrant](https://img.shields.io/badge/Qdrant-dc2626?style=flat-square)
-![MLflow](https://img.shields.io/badge/MLflow-0194e2?style=flat-square)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-ff6f00?style=flat-square&logo=tensorflow&logoColor=white)
-![PyTorch](https://img.shields.io/badge/PyTorch-ee4c2c?style=flat-square&logo=pytorch&logoColor=white)
-![HuggingFace](https://img.shields.io/badge/Hugging%20Face-ffd21e?style=flat-square)
+[![Kafka](https://img.shields.io/badge/Kafka-231f20?style=flat-square&logo=apachekafka&logoColor=white)](https://kafka.apache.org)
+[![Qdrant](https://img.shields.io/badge/Qdrant-dc2626?style=flat-square)](https://qdrant.tech)
+[![MLflow](https://img.shields.io/badge/MLflow-0194e2?style=flat-square)](https://mlflow.org)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-ff6f00?style=flat-square&logo=tensorflow&logoColor=white)](https://tensorflow.org)
+[![PyTorch](https://img.shields.io/badge/PyTorch-ee4c2c?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org)
+[![HuggingFace](https://img.shields.io/badge/Hugging%20Face-ffd21e?style=flat-square)](https://huggingface.co)
 
 ---
 
 ## By the Numbers
 
-<div align="center">
-
 | | |
-|:---:|:---:|
-| **17+** years engineering leadership | **20+** person global org (US + India) |
+| --- | --- |
+| **17+** years production AI experience | **40+** person global org (US + India) |
 | **9,000+** customers at day-one platform launch | **600+** enterprise clients in production |
 | **50+** countries served | **6** production ML models at GA |
 | **30%** renewal cycle compression | **28%** quote processing efficiency improvement |
 | **2x** internal promotion rate increase | **32%** incident volume reduction |
-
-</div>
 
 ---
 
@@ -178,17 +190,13 @@ Full MLOps stack: feature stores · training pipelines · real-time + batch infe
 
 ---
 
-**Where AI needs to move from a feature to core business infrastructure.**
+I build the platforms that make AI commercially accountable — not just technically impressive.
 
-Industries: Enterprise SaaS · AI-native companies · Revenue/GTM platforms · CDPs · B2B tech · Agentic AI infrastructure
+**Industries:** Enterprise SaaS · AI-native companies · Revenue / GTM platforms · CDPs · B2B tech · Agentic AI infrastructure
 
 ---
 
-<div align="center">
-
-**Open to conversations about AI platform Architecture.**
+**Open to conversations about VP / Director of Engineering and AI Platform Architecture roles.**
 
 [![LinkedIn](https://img.shields.io/badge/Connect%20on%20LinkedIn-0a66c2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/saralabiswal)
 [![Email](https://img.shields.io/badge/saralabiswal%40gmail.com-ea4335?style=flat-square&logo=gmail&logoColor=white)](mailto:saralabiswal@gmail.com)
-
-</div>
