@@ -1,6 +1,6 @@
 # Sarala Biswal
 
-**VP / Director of Engineering · AI Platform Architect · Agentic AI · MCP · MLOps · Enterprise Scale**
+**VP / Director of AI Engineering · AI Platform Architect · Agentic AI · MCP · MLOps · Enterprise Scale**
 
 *Belmont, CA · He/Him*
 
