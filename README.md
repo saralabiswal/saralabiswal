@@ -107,7 +107,7 @@ make dev                          # API → http://localhost:8001
 
 | Layer | Repo | What it demonstrates |
 | --- | --- | --- |
-| **Platform** | [banking-agentic-ai-platform](https://github.com/saralabiswal/banking-agentic-ai-platform) | 6-layer governed agentic pipeline · guardrails · A/B · full audit |
+| **Platform** | [banking-agentic-ai-platform](https://github.com/saralabiswal/agentic-banking-llmops) | 6-layer governed agentic pipeline · guardrails · A/B · full audit |
 | **Platform** | [agentic-cdp-mlops](https://github.com/saralabiswal/agentic-cdp-mlops) | 8-stage ML platform · model registry · governed promotion lifecycle |
 | **Ops** | [agentops-eval-llmops](https://github.com/saralabiswal/agentops-eval-llmops) | LLM agent evaluation · judge/SUT separation · faithfulness scoring |
 | **Domain Agent** | [agentic-revenue-cpq](https://github.com/saralabiswal/agentic-revenue-cpq) | MCP integration · LangGraph · Oracle CPQ-style quote lifecycle |
