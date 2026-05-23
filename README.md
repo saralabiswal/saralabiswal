@@ -17,7 +17,7 @@ Hands-on engineering leader who architects production systems personally while s
 
 17+ years at Oracle shipping two flagship AI platforms at enterprise scale:
 
-- **Agentic AI on CPQ** — Renewal Agent + Quote Generation Agent · 3,000+ sales users · 600+ enterprise clients · 50+ countries · 30% renewal cycle compression · 28% quote processing efficiency improvement
+- **Agentic AI on CPQ** — Renewal Agent + Quote Generation Agent · 300,000+ sales users · 600+ enterprise clients · 50+ countries · 30% renewal cycle compression · 28% quote processing efficiency improvement
 - **Unity CDP AI/ML** — 6 production models (Next Best Action, Churn Propensity, CLV, RFM Segmentation, Multi-Touch Attribution, MMM) · 9,000+ customers at day-one GA · no phased rollout
 
 The hard part isn't the model — it's the integration layer. I solved the cross-vendor problem in production: unified live context from Salesforce, MS Dynamics, and Oracle clouds so agents make decisions on real data, not cached snapshots.
