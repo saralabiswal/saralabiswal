@@ -30,39 +30,72 @@ The hard part isn't the model — it's the integration layer. I solved the cross
 
 ### 🏦 [agentic-banking-llmops](https://github.com/saralabiswal/agentic-banking-llmops)
 
-> Production-grade, cloud-agnostic Agentic AI platform for banking decisions — open source reference architecture for governed agentic AI systems. Demonstrates the engineering disciplines that separate trustworthy AI infrastructure from demos that don't survive contact with production.
+> Production-grade, cloud-agnostic Agentic AI platform for banking decisions — complete reference architecture for governed agentic AI systems. Ten platform capabilities across eight services, composable by any product team through a stable SDK.
 
-This is a **complete reference architecture** — not a proof of concept. Every architectural decision is named, typed, independently testable, and documented. Ten platform capabilities across eight services, wired with a live UI, full observability stack, and regulatory audit replay.
+> *"The engineering problems that make agentic AI fail in production are not model problems. They are infrastructure problems — stale context, ungoverned execution, absent memory, unvalidated models, and no feedback path from outcome back to decision. This platform solves each of those problems as a named, typed, independently testable layer with a clean contract to its neighbors."*
+
+**Three architectural deficits this platform addresses:**
+
+- **Stale batch context** — nightly risk scores reflect yesterday's account state. An agent acting on an 18-hour-old risk score makes a decision that is technically correct but wrong in the world.
+- **Ungoverned agent execution** — an agent with no compliance gate between its reasoning and its action can violate CFPB, ECOA, or UDAAP. In a regulated environment, that is not a product risk — it is a legal one.
+- **No closed-loop governance** — without outcome capture, memory, and evaluation history, the platform learns nothing across sessions. It restarts blind every time.
+
+**Six architectural principles — applied without exception:**
+
+1. **Typed contracts at every boundary** — Pydantic v2 schemas throughout, no dicts, no untyped kwargs
+2. **Protocol-based dependency injection** — every external dependency behind a `Protocol` interface, independently testable
+3. **Graceful degradation over hard failure** — one failing source marks `sources_degraded`, pipeline continues
+4. **Governance as a runtime capability** — Layer 4 runs *before* Layer 6 executes, not as a post-hoc audit
+5. **Immutable, replayable audit trail** — one `trace_id` reconstructs every decision for regulatory replay
+6. **Closed feedback loop** — outcome events write `CustomerMemory` records, retrieved at the next session
 
 **Reference Architecture — Six Governed Layers:**
 
 | Layer | Responsibility | Key Pattern |
 |---|---|---|
-| **L1 Context Assembly** | Live customer profile in < 200ms | Parallel async fetch · long-term memory (Qdrant) · ML scoring · graceful degradation |
+| **L1 Context Assembly** | Live profile < 200ms | Parallel async fetch · two-tier memory (Valkey TTL + Qdrant long-term) · artifact-backed ML scoring · graceful degradation |
 | **L2 Vector Search** | Right policy at decision time | Hybrid dense + BM25 · RRF fusion · cross-encoder rerank · KB version tracking |
-| **L3 Orchestration** | Hub-and-spoke agents · propose only | Tool authorization in code · schema-validated outputs · LLM inference service |
-| **L4 Guardrails** | REGULATORY → BUSINESS → AI sequence | Versioned YAML rules · BISG fairness · CFPB/ECOA/UDAAP · SLA approval queue |
-| **L5 A/B + Model Gov.** | Deterministic experiments + drift | Hash-based assignment · champion/challenger · PSI/KS/recall · offline eval gates |
-| **L6 SDK + Execution** | Product team surface | Blueprint catalog · outcome capture · trace_id threading · dual feedback loop |
+| **L3 Orchestration** | Hub-and-spoke · propose only | Tool authorization in code · schema-validated outputs · routed LLM inference service |
+| **L4 Guardrails** | REGULATORY → BUSINESS → AI | Versioned YAML rules · BISG/AIR fairness · CFPB/ECOA/UDAAP · SLA approval queue |
+| **L5 A/B + Model Gov.** | Deterministic experiments + drift | Hash-based assignment · champion/challenger · PSI/KS/recall · 4-gate offline eval |
+| **L6 SDK + Execution** | Product team surface | Blueprints: `PAYMENT_RISK_INTERVENTION` · `BILLING_DISPUTE_RESOLUTION` · `CHURN_PREVENTION` · `FRAUD_ALERT` |
 
 **One `trace_id` reconstructs every decision end-to-end for regulatory replay.**
 **4-gate offline evaluation pipeline: benchmark · fairness · Adverse Impact Ratio · LLM-judge.**
-**Full observability: Prometheus · Grafana · OpenTelemetry · Jaeger · MLflow. 90% coverage gate.**
+
+**10 UI pages:** Pipeline Runner · Architecture View (animated SSE) · Audit Trail · Experiments · Drift Monitor · Guardrails · Model Registry · Evaluation · Settings · About
+
+**LLM modes — runtime switching, no restart required:**
+
+| Mode | Config | Notes |
+|---|---|---|
+| **Ollama** (default) | `LLM_BACKEND=ollama` | Real local inference — free, no account, no data egress |
+| **Mock** | `LLM_BACKEND=mock` | Deterministic responses — exercises all layers with zero dependency |
+| **API** | `LLM_BACKEND=api` + key | LiteLLM — Claude, GPT-4o, 100+ providers |
+
+**8 local services:**
+
+```
+Valkey:6379  PostgreSQL:5432  Qdrant:6333  Jaeger:16686
+Prometheus:9090  Grafana:3000  MLflow:5001  Ollama:11434
+```
 
 ```bash
 git clone https://github.com/saralabiswal/agentic-banking-llmops
 cd agentic-banking-llmops && make install && make docker-up
-cp .env.example .env && make demo
-# Runs all 6 layers end-to-end — no API key required
+cp .env.example .env && make seed && make dev
+# All 8 services + API + UI with hot-reload — no API key required
 ```
 
 [![Python](https://img.shields.io/badge/Python-3.12-3b82f6?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111-10b981?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18-61dafb?style=flat-square&logo=react&logoColor=white)](https://react.dev)
 [![Qdrant](https://img.shields.io/badge/Qdrant-vector--store-dc2626?style=flat-square)](https://qdrant.tech)
-[![MLflow](https://img.shields.io/badge/MLflow-registry-f59e0b?style=flat-square)](https://mlflow.org)
+[![Valkey](https://img.shields.io/badge/Valkey-session--store-f59e0b?style=flat-square)](https://valkey.io)
+[![MLflow](https://img.shields.io/badge/MLflow-registry-0194e2?style=flat-square)](https://mlflow.org)
+[![Evidently](https://img.shields.io/badge/Evidently-drift-a855f7?style=flat-square)](https://evidentlyai.com)
 [![Coverage](https://img.shields.io/badge/coverage-90%25%2B-22c55e?style=flat-square)](https://pytest.org)
-[![License](https://img.shields.io/badge/license-MIT-a855f7?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-64748b?style=flat-square)](LICENSE)
 
 ---
 
