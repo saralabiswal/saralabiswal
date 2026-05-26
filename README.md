@@ -28,6 +28,44 @@ The hard part isn't the model — it's the integration layer. I solved the cross
 
 ## Featured Projects
 
+### 🏦 [agentic-banking-llmops](https://github.com/saralabiswal/agentic-banking-llmops)
+
+> Production-grade, cloud-agnostic Agentic AI platform for banking decisions — open source reference architecture for governed agentic AI systems. Demonstrates the engineering disciplines that separate trustworthy AI infrastructure from demos that don't survive contact with production.
+
+This is a **complete reference architecture** — not a proof of concept. Every architectural decision is named, typed, independently testable, and documented. Ten platform capabilities across eight services, wired with a live UI, full observability stack, and regulatory audit replay.
+
+**Reference Architecture — Six Governed Layers:**
+
+| Layer | Responsibility | Key Pattern |
+|---|---|---|
+| **L1 Context Assembly** | Live customer profile in < 200ms | Parallel async fetch · long-term memory (Qdrant) · ML scoring · graceful degradation |
+| **L2 Vector Search** | Right policy at decision time | Hybrid dense + BM25 · RRF fusion · cross-encoder rerank · KB version tracking |
+| **L3 Orchestration** | Hub-and-spoke agents · propose only | Tool authorization in code · schema-validated outputs · LLM inference service |
+| **L4 Guardrails** | REGULATORY → BUSINESS → AI sequence | Versioned YAML rules · BISG fairness · CFPB/ECOA/UDAAP · SLA approval queue |
+| **L5 A/B + Model Gov.** | Deterministic experiments + drift | Hash-based assignment · champion/challenger · PSI/KS/recall · offline eval gates |
+| **L6 SDK + Execution** | Product team surface | Blueprint catalog · outcome capture · trace_id threading · dual feedback loop |
+
+**One `trace_id` reconstructs every decision end-to-end for regulatory replay.**
+**4-gate offline evaluation pipeline: benchmark · fairness · Adverse Impact Ratio · LLM-judge.**
+**Full observability: Prometheus · Grafana · OpenTelemetry · Jaeger · MLflow. 90% coverage gate.**
+
+```bash
+git clone https://github.com/saralabiswal/agentic-banking-llmops
+cd agentic-banking-llmops && make install && make docker-up
+cp .env.example .env && make demo
+# Runs all 6 layers end-to-end — no API key required
+```
+
+[![Python](https://img.shields.io/badge/Python-3.12-3b82f6?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-10b981?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-18-61dafb?style=flat-square&logo=react&logoColor=white)](https://react.dev)
+[![Qdrant](https://img.shields.io/badge/Qdrant-vector--store-dc2626?style=flat-square)](https://qdrant.tech)
+[![MLflow](https://img.shields.io/badge/MLflow-registry-f59e0b?style=flat-square)](https://mlflow.org)
+[![Coverage](https://img.shields.io/badge/coverage-90%25%2B-22c55e?style=flat-square)](https://pytest.org)
+[![License](https://img.shields.io/badge/license-MIT-a855f7?style=flat-square)](LICENSE)
+
+---
+
 ### 🔗 [agentic-mcp-quote-to-cash](https://github.com/saralabiswal/agentic-mcp-quote-to-cash)
 
 > MCP-powered integration layer for vendor-agnostic quote-to-cash agentic decisions — the cross-vendor architecture pattern running in production across 600+ enterprise clients.
@@ -58,41 +96,6 @@ cd ui && npm install && npm run dev -- --port 3001
 [![Pydantic v2](https://img.shields.io/badge/Pydantic-v2-e11d48?style=flat-square)](https://docs.pydantic.dev)
 [![React](https://img.shields.io/badge/React-18-61dafb?style=flat-square&logo=react&logoColor=white)](https://react.dev)
 [![License](https://img.shields.io/badge/license-MIT-f59e0b?style=flat-square)](LICENSE)
-
----
-
-### 🏦 [agentic-banking-llmops](https://github.com/saralabiswal/agentic-banking-llmops)
-
-> Production-grade, cloud-agnostic Agentic AI platform for banking decisions — open source reference implementation of the engineering disciplines that separate trustworthy AI from demos that don't survive contact with production.
-
-Six governed layers composable by any product team through a stable SDK:
-
-| Layer | Responsibility | Key Pattern |
-|---|---|---|
-| **L1 Context Assembly** | Live customer profile in < 200ms | Parallel async fetch · long-term memory · graceful degradation |
-| **L2 Vector Search** | Right policy at decision time | Hybrid dense + BM25 · RRF merge · cross-encoder rerank |
-| **L3 Orchestration** | Hub-and-spoke agents · propose only | Tool authorization in code · schema-validated outputs |
-| **L4 Guardrails** | REGULATORY → BUSINESS → AI sequence | Versioned YAML rules · BISG fairness · SLA approval queue |
-| **L5 A/B + Model Gov.** | Deterministic experiments + drift | Hash-based assignment · champion/challenger · PSI/KS/recall |
-| **L6 SDK + Execution** | Product team surface | Blueprint catalog · outcome capture · trace_id threading |
-
-**One `trace_id` reconstructs every decision for regulatory replay.**
-**4-gate offline evaluation: benchmark · fairness · Adverse Impact Ratio · LLM-judge.**
-
-```bash
-git clone https://github.com/saralabiswal/agentic-banking-llmops
-cd agentic-banking-llmops && make install && make docker-up
-cp .env.example .env && make demo
-# Runs end-to-end — no API key required
-```
-
-[![Python](https://img.shields.io/badge/Python-3.12-3b82f6?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-10b981?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-18-61dafb?style=flat-square&logo=react&logoColor=white)](https://react.dev)
-[![Qdrant](https://img.shields.io/badge/Qdrant-vector--store-dc2626?style=flat-square)](https://qdrant.tech)
-[![MLflow](https://img.shields.io/badge/MLflow-registry-f59e0b?style=flat-square)](https://mlflow.org)
-[![Coverage](https://img.shields.io/badge/coverage-90%25%2B-22c55e?style=flat-square)](https://pytest.org)
-[![License](https://img.shields.io/badge/license-MIT-a855f7?style=flat-square)](LICENSE)
 
 ---
 
