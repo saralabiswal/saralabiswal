@@ -1,15 +1,5 @@
 # Sarala Biswal
 
-**VP / Director of AI Engineering · AI Platform Architect · Agentic AI · MCP · MLOps · Enterprise Scale · Oracle CPQ · Quote-to-Cash**
-
-*Belmont, CA · He/Him*
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-saralabiswal-0a66c2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/saralabiswal)
-[![Email](https://img.shields.io/badge/Email-saralabiswal%40gmail.com-ea4335?style=flat-square&logo=gmail&logoColor=white)](mailto:saralabiswal@gmail.com)
-[![Profile Views](https://komarev.com/ghpvc/?username=saralabiswal&style=flat-square&color=3b82f6&label=Profile+Views)](https://github.com/saralabiswal)
-
-# Sarala Biswal
-
 **VP / Director of Engineering · Agentic AI · MCP · MLOps · CPQ · Quote-to-Cash · Hands-On Technical Leader**
 
 *Belmont, CA · He/Him*
