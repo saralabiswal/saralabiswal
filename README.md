@@ -1,6 +1,6 @@
 # Sarala Biswal
 
-**VP / Director of Engineering · Agentic AI · MCP · MLOps · CPQ · Quote-to-Cash · Hands-On Technical Leader**
+**VP / Director of AI Engineering · Agentic AI · MCP · MLOps · CPQ · Quote-to-Cash · Hands-On Technical Leader**
 
 *Belmont, CA · He/Him*
 
