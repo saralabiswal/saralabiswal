@@ -14,220 +14,76 @@
 ## About
 
 I build AI/ML platforms that generate revenue — not just predictions.
-Hands-on engineering leader who architects and codes production systems personally
-while setting technical direction for a 40+ person global org.
+Hands-on engineering leader who architects production systems personally while setting technical direction for a global org.
 
 17+ years at Oracle shipping two flagship AI platforms at enterprise scale:
 
-- **Agentic AI on CPQ** — Renewal Agent + Quote Generation Agent · 3,000+ active sales users · 600+ enterprise clients · 50+ countries · 30% renewal cycle compression · 28% quote processing efficiency improvement
+- **Agentic AI on CPQ** — Renewal Agent + Quote Generation Agent · 3,000+ sales users · 600+ enterprise clients · 50+ countries · 30% renewal cycle compression · 28% quote processing efficiency improvement
 - **Unity CDP AI/ML** — 6 production models (Next Best Action, Churn Propensity, CLV, RFM Segmentation, Multi-Touch Attribution, MMM) · 9,000+ customers at day-one GA · no phased rollout
 
-The hard part isn't the model — it's the integration layer. I solved the cross-vendor problem in production: unified live context from Salesforce, MS Dynamics 365, and Oracle clouds so agents make decisions on real data, not cached snapshots.
+The hard part isn't the model — it's the integration layer and the management layer around it. I solved the cross-vendor problem in production: unified live context from Salesforce, MS Dynamics, and Oracle clouds so agents make decisions on real data, not cached snapshots. And I've built what most companies are now hiring specialists to operate: agent tracing, cost attribution, quality scoring, and governed promotion — **AgentOps as a discipline, not an afterthought.**
 
 ---
 
-## Featured Projects
+## Start Here — 3 Repos That Define The Portfolio
 
-### 🏦 [agentic-banking-llmops](https://github.com/saralabiswal/agentic-banking-llmops)
+These three show the full arc: govern the agent, prove the integration pattern, prove it holds up in a regulated domain.
 
-> Production-grade, cloud-agnostic Agentic AI platform for banking decisions — complete reference architecture for governed agentic AI systems. Ten platform capabilities across eight services, composable by any product team through a stable SDK.
+### 🎛️ [AgentOps Control Plane](https://github.com/saralabiswal/agentops-control-plane)
+> *"An agent that can't be traced, costed, or tied to an outcome isn't a production system. It's a demo with uptime."*
 
-> *"The engineering problems that make agentic AI fail in production are not model problems. They are infrastructure problems — stale context, ungoverned execution, absent memory, unvalidated models, and no feedback path from outcome back to decision. This platform solves each of those problems as a named, typed, independently testable layer with a clean contract to its neighbors."*
+Traces every agent run, attributes LLM cost, scores output quality asynchronously, and maps decisions to financial outcomes. Seven business agents across Project Management and Revenue Management, one enforced management-layer contract. This is the category — AgentOps — built as infrastructure, not a slide.
 
-**Three architectural deficits this platform addresses:**
+`FastAPI` `LangGraph` `React` `SQLite` `MLflow`
 
-- **Stale batch context** — nightly risk scores reflect yesterday's account state. An agent acting on an 18-hour-old risk score makes a decision that is technically correct but wrong in the world.
-- **Ungoverned agent execution** — an agent with no compliance gate between its reasoning and its action can violate CFPB, ECOA, or UDAAP. In a regulated environment, that is not a product risk — it is a legal one.
-- **No closed-loop governance** — without outcome capture, memory, and evaluation history, the platform learns nothing across sessions. It restarts blind every time.
+### 🔗 [Agentic MCP Quote-to-Cash](https://github.com/saralabiswal/agentic-mcp-quote-to-cash)
+Vendor-agnostic quote-to-cash decisioning — MCP adapters assemble live CRM, CPQ, Order Management, Subscription, and Install Base context into one canonical schema. Swap Salesforce for Dynamics and the agent code doesn't change. 16 adapters, 7 demo scenarios, full audit trail.
 
-**Six architectural principles — applied without exception:**
+`Python` `React` `MCP` `Pydantic v2`
 
-1. **Typed contracts at every boundary** — Pydantic v2 schemas throughout, no dicts, no untyped kwargs
-2. **Protocol-based dependency injection** — every external dependency behind a `Protocol` interface, independently testable
-3. **Graceful degradation over hard failure** — one failing source marks `sources_degraded`, pipeline continues
-4. **Governance as a runtime capability** — Layer 4 runs *before* Layer 6 executes, not as a post-hoc audit
-5. **Immutable, replayable audit trail** — one `trace_id` reconstructs every decision for regulatory replay
-6. **Closed feedback loop** — outcome events write `CustomerMemory` records, retrieved at the next session
+### ⚖️ [Agentic Regulated Decisioning](https://github.com/saralabiswal/agentic-regulated-decisioning)
+Domain-independent L0–L9 platform for regulated AI decisions — insurance, lending, healthcare, and wealth run on the same runtime with zero domain-specific imports in platform code. Jurisdiction-aware governance, append-only audit, human review workbench.
 
-**Reference Architecture — Six Governed Layers:**
-
-| Layer | Responsibility | Key Pattern |
-|---|---|---|
-| **L1 Context Assembly** | Live profile < 200ms | Parallel async fetch · two-tier memory (Valkey TTL + Qdrant long-term) · artifact-backed ML scoring · graceful degradation |
-| **L2 Vector Search** | Right policy at decision time | Hybrid dense + BM25 · RRF fusion · cross-encoder rerank · KB version tracking |
-| **L3 Orchestration** | Hub-and-spoke · propose only | Tool authorization in code · schema-validated outputs · routed LLM inference service |
-| **L4 Guardrails** | REGULATORY → BUSINESS → AI | Versioned YAML rules · BISG/AIR fairness · CFPB/ECOA/UDAAP · SLA approval queue |
-| **L5 A/B + Model Gov.** | Deterministic experiments + drift | Hash-based assignment · champion/challenger · PSI/KS/recall · 4-gate offline eval |
-| **L6 SDK + Execution** | Product team surface | Blueprints: `PAYMENT_RISK_INTERVENTION` · `BILLING_DISPUTE_RESOLUTION` · `CHURN_PREVENTION` · `FRAUD_ALERT` |
-
-**One `trace_id` reconstructs every decision end-to-end for regulatory replay.**
-**4-gate offline evaluation pipeline: benchmark · fairness · Adverse Impact Ratio · LLM-judge.**
-
-**10 UI pages:** Pipeline Runner · Architecture View (animated SSE) · Audit Trail · Experiments · Drift Monitor · Guardrails · Model Registry · Evaluation · Settings · About
-
-**LLM modes — runtime switching, no restart required:**
-
-| Mode | Config | Notes |
-|---|---|---|
-| **Ollama** (default) | `LLM_BACKEND=ollama` | Real local inference — free, no account, no data egress |
-| **Mock** | `LLM_BACKEND=mock` | Deterministic responses — exercises all layers with zero dependency |
-| **API** | `LLM_BACKEND=api` + key | LiteLLM — Claude, GPT-4o, 100+ providers |
-
-**8 local services:**
-
-```
-Valkey:6379  PostgreSQL:5432  Qdrant:6333  Jaeger:16686
-Prometheus:9090  Grafana:3000  MLflow:5001  Ollama:11434
-```
-
-```bash
-git clone https://github.com/saralabiswal/agentic-banking-llmops
-cd agentic-banking-llmops && make install && make docker-up
-cp .env.example .env && make seed && make dev
-# All 8 services + API + UI with hot-reload — no API key required
-```
-
-[![Python](https://img.shields.io/badge/Python-3.12-3b82f6?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-10b981?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-18-61dafb?style=flat-square&logo=react&logoColor=white)](https://react.dev)
-[![Qdrant](https://img.shields.io/badge/Qdrant-vector--store-dc2626?style=flat-square)](https://qdrant.tech)
-[![Valkey](https://img.shields.io/badge/Valkey-session--store-f59e0b?style=flat-square)](https://valkey.io)
-[![MLflow](https://img.shields.io/badge/MLflow-registry-0194e2?style=flat-square)](https://mlflow.org)
-[![Evidently](https://img.shields.io/badge/Evidently-drift-a855f7?style=flat-square)](https://evidentlyai.com)
-[![Coverage](https://img.shields.io/badge/coverage-90%25%2B-22c55e?style=flat-square)](https://pytest.org)
-[![License](https://img.shields.io/badge/license-MIT-64748b?style=flat-square)](LICENSE)
+`LangGraph` `MCP` `MLflow` `Redis Streams` `PostgreSQL`
 
 ---
 
-### 🔗 [agentic-mcp-quote-to-cash](https://github.com/saralabiswal/agentic-mcp-quote-to-cash)
+## Full Portfolio — 13 Repos by Category
 
-> MCP-powered integration layer for vendor-agnostic quote-to-cash agentic decisions — the cross-vendor architecture pattern running in production across 600+ enterprise clients.
+### AgentOps & Governance Infrastructure
+*The category itself — observability, cost, quality, and evaluation for agents already in production*
 
-**The core proof: vendor selection is configuration, not agent code.** Switching CRM from Salesforce to Microsoft Dynamics 365, or Order Management from Oracle FOM to SAP S/4HANA, changes the adapter path and source attribution — the decision agent and canonical schema are untouched.
-
-| Slot | Adapter implementations | Canonical output |
-|---|---|---|
-| **CRM** | Salesforce · MS Dynamics 365 · Oracle CX Sales | Account · Opportunity · Contact · Activity |
-| **CPQ** | Oracle CPQ Cloud | Product · PriceBook · Quote |
-| **Order Management** | Oracle FOM · Salesforce OMS · SAP S/4HANA · Zuora · NetSuite | Order · OrderLine · FulfillmentStatus |
-| **Subscription** | Oracle Sub Cloud · Zuora · Chargebee · Salesforce Revenue Cloud | Subscription · UsageHealth · RenewalSignal |
-| **Install Base** | Oracle Install Base · Salesforce Asset · ServiceNow CMDB | InstalledProduct · Entitlement |
-
-**16 adapters. 5 commercial-system slots. One canonical schema. Seven demo scenarios.**
-
-```bash
-git clone https://github.com/saralabiswal/agentic-mcp-quote-to-cash
-cd agentic-mcp-quote-to-cash && make install && make seed
-make dev-api          # FastAPI → http://localhost:8000
-cd ui && npm install && npm run dev -- --port 3001
-# No API key required — runs end-to-end in demo mode
-```
-
-[![Python](https://img.shields.io/badge/Python-3.12-3b82f6?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-10b981?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![MCP SDK](https://img.shields.io/badge/MCP%20SDK-1.0-a855f7?style=flat-square)](https://github.com/modelcontextprotocol)
-[![Pydantic v2](https://img.shields.io/badge/Pydantic-v2-e11d48?style=flat-square)](https://docs.pydantic.dev)
-[![React](https://img.shields.io/badge/React-18-61dafb?style=flat-square&logo=react&logoColor=white)](https://react.dev)
-[![License](https://img.shields.io/badge/license-MIT-f59e0b?style=flat-square)](LICENSE)
-
----
-
-### 🧪 [agentops-eval-llmops](https://github.com/saralabiswal/agentops-eval-llmops)
-
-> Evaluation harness for governed LLM agents — because production AI without evals is just a demo you shipped.
-
-Most agentic AI systems stop at building the agent. This framework answers the question every production deployment eventually faces: **how do you know it's still working correctly next month?**
-
-| Component | What it does |
+| Repo | What it proves |
 |---|---|
-| **YAML test cases** | Benchmark scenarios for payment risk, billing disputes, churn prevention |
-| **Independent judge** | Separate judge backend — not the same model being evaluated (prevents self-evaluation bias) |
-| **Scoring dimensions** | Faithfulness · answer relevance · context precision · consistency · latency/quality tradeoff |
-| **SUT backends** | Mock · Ollama · cloud API · banking platform adapter — swap without changing test cases |
-| **Reports** | HTML + JSON · SSE streaming · side-by-side model comparison |
+| [agentops-control-plane](https://github.com/saralabiswal/agentops-control-plane) | Agent tracing, LLM cost attribution, async quality scoring, financial outcome mapping |
+| [agentic-llm-observability](https://github.com/saralabiswal/agentic-llm-observability) | Quote-to-Cash LLMOps control plane — token economics, latency SLOs, prompt versioning, semantic drift |
+| [agentops-eval-llmops](https://github.com/saralabiswal/agentops-eval-llmops) | LLM agent evaluation — faithfulness, relevance, consistency, judge/SUT separation |
 
-Plugs directly into `agentic-banking-llmops` as its evaluation layer — same `trace_id`, same scenarios, same policy boundaries.
+### Enterprise Agentic Systems by Domain
+*Proof the integration and governance patterns hold across industries*
 
-```bash
-make install && cp .env.example .env
-make demo                         # mock backend, no API key required
-make dev                          # API → http://localhost:8001
-```
-
-[![Python](https://img.shields.io/badge/Python-3.12-3b82f6?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-10b981?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![LiteLLM](https://img.shields.io/badge/LiteLLM-multi--provider-6366f1?style=flat-square)](https://litellm.ai)
-[![Ollama](https://img.shields.io/badge/Ollama-local--first-0ea5e9?style=flat-square)](https://ollama.com)
-
----
-
-### 📊 [agentic-llm-observability](https://github.com/saralabiswal/agentic-llm-observability)
-
-> Production LLMOps control plane for Quote-to-Cash agentic workflows — token cost attribution, quality scoring, latency SLOs, prompt versioning, and semantic drift detection across five providers.
-
-Answers the production questions most enterprises cannot answer:
-
-| Question | What the platform tracks |
-|---|---|
-| How much did this agent run cost? | Token cost per call · per model · per use case · per provider |
-| Which model and prompt version ran? | Prompt version registry · A/B comparison · rollout history |
-| Did quality stay above threshold? | Faithfulness · relevance · coherence · hallucination signals · quality gates |
-| Were latency SLOs met? | p50 / p95 / p99 per model · SLO compliance % · breach visibility |
-| Did outputs drift from baseline? | Semantic drift score · threshold alerts · operational posture |
-
-**Five providers with real rate cards:**
-
-| Provider | Model | Use case |
+| Repo | Domain | What it proves |
 |---|---|---|
-| Local LLM | Ollama — Llama 3.2 · Qwen 2.5 · Mistral | Actual execution — standalone, no API key |
-| AWS Bedrock | Claude 3.5 Haiku | Production agent workloads |
-| Azure OpenAI | GPT-4o mini | Global deployment, low-cost reasoning |
-| OCI Generative AI | Cohere Command R | Enterprise RAG-style flows |
-| Google Vertex AI | Gemini 2.0 Flash | Fast agentic workflows |
+| [agentic-mcp-quote-to-cash](https://github.com/saralabiswal/agentic-mcp-quote-to-cash) | Revenue / CPQ | Cross-vendor MCP integration, live context assembly, vendor-swap without code change |
+| [agentic-banking-llmops](https://github.com/saralabiswal/agentic-banking-llmops) | Banking | 6-layer governed pipeline, regulatory replay, drift monitoring, closed feedback loop |
+| [agentic-regulated-decisioning](https://github.com/saralabiswal/agentic-regulated-decisioning) | Insurance / Lending / Healthcare / Wealth | Domain-as-plugin architecture, jurisdiction-aware governance, append-only audit |
+| [agentic-saas-renewal](https://github.com/saralabiswal/agentic-saas-renewal) | SaaS Revenue | Hybrid rules + ML decisioning, validator-gated LLM participation, MLOps lifecycle |
+| [agentic-revenue-cpq](https://github.com/saralabiswal/agentic-revenue-cpq) | CPQ | Multi-agent quoting, LangGraph orchestration, RAG-backed product knowledge |
+| [agentic-cdp-mlops](https://github.com/saralabiswal/agentic-cdp-mlops) | Customer Data Platform | 8-stage ML platform, model registry, governed promotion lifecycle |
+| [agentic-hr-onboarding-mcp](https://github.com/saralabiswal/agentic-hr-onboarding-mcp) | HR Ops | MCP connectors across Workday/Jira/Slack/Salesforce, idempotency, audit log |
+| [agentic-ecommerce-rag](https://github.com/saralabiswal/agentic-ecommerce-rag) | E-commerce | RAG with quality gates, competitor analysis, human-in-the-loop review |
 
-```bash
-make install && make seed
-ollama pull llama3.2              # default local model
-make dev-api                      # API → http://localhost:9100
-make dev-ui                       # UI  → http://localhost:5173
-# No API key required
-```
+### Core ML Foundations
+*Production ML discipline underneath the agent layer*
 
-[![Python](https://img.shields.io/badge/Python-3.12-3b82f6?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-10b981?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![Ollama](https://img.shields.io/badge/Ollama-local--first-f59e0b?style=flat-square)](https://ollama.com)
-[![OCI](https://img.shields.io/badge/OCI-Generative%20AI-f87171?style=flat-square&logo=oracle&logoColor=white)](https://oracle.com/cloud)
-[![React](https://img.shields.io/badge/React-18-61dafb?style=flat-square&logo=react&logoColor=white)](https://react.dev)
-
----
-
-## Production Platforms (Oracle, 2009–Present)
-
-| Agentic AI on CPQ | Unity CDP AI/ML Platform |
+| Repo | What it proves |
 |---|---|
-| **MCP-powered multi-agent orchestration** | **6 production models · 9,000+ customers · day-one GA** |
-| Renewal Agent — autonomous risk scoring + optimized proposal generation | Next Best Action / Offer |
-| Quote Generation Agent — real-time margin enforcement + cross-sell intelligence | Churn & Engagement Propensity |
-| AI Agent Studio — agent lifecycle, tool routing, policy enforcement across the full commercial lifecycle | Customer Lifetime Value (CLV) |
-| Cross-vendor CRM integration layer: Salesforce + MS Dynamics 365 → Oracle CPQ Cloud + Fusion Order Management + Subscription Management · [Reference implementation →](https://github.com/saralabiswal/agentic-mcp-quote-to-cash) | RFM Segmentation |
-| | Multi-Touch Attribution (MTA) |
-| | Media Mix Modeling (MMM) |
-| **30% renewal cycle compression · 28% quote processing improvement** | Full MLOps stack: feature stores · training pipelines (TensorFlow · PyTorch · Hugging Face) · real-time + batch inference · embedding pipelines · vector DBs · RAG · drift detection · responsible AI governance |
+| [learning-to-rank-distillation](https://github.com/saralabiswal/learning-to-rank-distillation) | Governed ranking lifecycle — teacher/student distillation, fairness trade-offs, executable promotion gates |
 
----
-
-## Open Source Portfolio
-
-| Layer | Repo | What it demonstrates |
-|---|---|---|
-| **Integration** | [agentic-mcp-quote-to-cash](https://github.com/saralabiswal/agentic-mcp-quote-to-cash) | 16 MCP adapters · cross-vendor live context · CRM-agnostic · Quote-to-Cash lifecycle |
-| **Platform** | [agentic-banking-llmops](https://github.com/saralabiswal/agentic-banking-llmops) | 6-layer governed agentic pipeline · guardrails · A/B · regulatory replay · 90% coverage |
-| **Platform** | [agentic-cdp-mlops](https://github.com/saralabiswal/agentic-cdp-mlops) | 8-stage ML platform · 4 models · model registry · governed promotion lifecycle |
-| **Ops** | [agentops-eval-llmops](https://github.com/saralabiswal/agentops-eval-llmops) | LLM agent evaluation · judge/SUT separation · faithfulness · quality gates |
-| **Ops** | [agentic-llm-observability](https://github.com/saralabiswal/agentic-llm-observability) | LLMOps control plane · token cost · quality · latency SLOs · 5 providers |
-| **Domain** | [agentic-revenue-cpq](https://github.com/saralabiswal/agentic-revenue-cpq) | MCP integration · LangGraph · Oracle CPQ-style quote lifecycle |
-| **Domain** | [agentic-hr-onboarding-mcp](https://github.com/saralabiswal/agentic-hr-onboarding-mcp) | MCP connectors · Workday/Jira/Slack/Salesforce · idempotency |
-| **Domain** | [agentic-ecommerce-rag](https://github.com/saralabiswal/agentic-ecommerce-rag) | RAG · LangGraph · multi-agent · quality gate · human feedback |
+### Book
+| Repo | What it is |
+|---|---|
+| [production-ai-architecture](https://github.com/saralabiswal/production-ai-architecture) | Companion code for *Production AI Architecture* (Amazon) — gateways, RAG, agent workflows, evaluation harnesses, governance pipelines |
 
 ---
 
@@ -235,67 +91,39 @@ make dev-ui                       # UI  → http://localhost:5173
 
 **AI / ML / Agentic**
 
-![GenAI](https://img.shields.io/badge/Generative%20AI-3b82f6?style=flat-square)
-![Agentic AI](https://img.shields.io/badge/Agentic%20AI-3b82f6?style=flat-square)
-![LLMs](https://img.shields.io/badge/LLMs-3b82f6?style=flat-square)
-![RAG](https://img.shields.io/badge/RAG-3b82f6?style=flat-square)
-![MCP](https://img.shields.io/badge/MCP%20Dev%20%26%20Integration-3b82f6?style=flat-square)
-![LangChain](https://img.shields.io/badge/LangChain-3b82f6?style=flat-square)
-![LangGraph](https://img.shields.io/badge/LangGraph-3b82f6?style=flat-square)
-![MLOps](https://img.shields.io/badge/MLOps-3b82f6?style=flat-square)
-![LLMOps](https://img.shields.io/badge/LLMOps-3b82f6?style=flat-square)
-![Responsible AI](https://img.shields.io/badge/Responsible%20AI-3b82f6?style=flat-square)
-![Vector DBs](https://img.shields.io/badge/Vector%20Databases-3b82f6?style=flat-square)
+![GenAI](https://img.shields.io/badge/GenAI-3b82f6?style=flat-square) ![Agentic AI](https://img.shields.io/badge/Agentic%20AI-3b82f6?style=flat-square) ![LLMs](https://img.shields.io/badge/LLMs-3b82f6?style=flat-square) ![RAG](https://img.shields.io/badge/RAG-3b82f6?style=flat-square) ![MCP](https://img.shields.io/badge/MCP%20Dev%20%26%20Integration-3b82f6?style=flat-square) ![LangChain](https://img.shields.io/badge/LangChain-3b82f6?style=flat-square) ![LangGraph](https://img.shields.io/badge/LangGraph-3b82f6?style=flat-square) ![MLOps](https://img.shields.io/badge/MLOps-3b82f6?style=flat-square) ![AgentOps](https://img.shields.io/badge/AgentOps-3b82f6?style=flat-square) ![Responsible AI](https://img.shields.io/badge/Responsible%20AI-3b82f6?style=flat-square) ![Vector DBs](https://img.shields.io/badge/Vector%20Databases-3b82f6?style=flat-square)
 
 **Languages & Frameworks**
 
-[![Python](https://img.shields.io/badge/Python-3776ab?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![Java](https://img.shields.io/badge/Java-f89820?style=flat-square&logo=openjdk&logoColor=white)](https://java.com)
-[![SQL](https://img.shields.io/badge/SQL-4479a1?style=flat-square&logo=postgresql&logoColor=white)](https://postgresql.org)
-[![Apache Spark](https://img.shields.io/badge/Apache%20Spark-e25a1c?style=flat-square&logo=apachespark&logoColor=white)](https://spark.apache.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-20232a?style=flat-square&logo=react&logoColor=61dafb)](https://react.dev)
+![Python](https://img.shields.io/badge/Python-3776ab?style=flat-square&logo=python&logoColor=white) ![Java](https://img.shields.io/badge/Java-f89820?style=flat-square&logo=openjdk&logoColor=white) ![SQL](https://img.shields.io/badge/SQL-4479a1?style=flat-square&logo=postgresql&logoColor=white) ![Apache Spark](https://img.shields.io/badge/Apache%20Spark-e25a1c?style=flat-square&logo=apachespark&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white) ![React](https://img.shields.io/badge/React-20232a?style=flat-square&logo=react&logoColor=61dafb)
 
 **Cloud & Infrastructure**
 
-[![OCI](https://img.shields.io/badge/OCI-f80000?style=flat-square&logo=oracle&logoColor=white)](https://oracle.com/cloud)
-[![AWS](https://img.shields.io/badge/AWS-232f3e?style=flat-square&logo=amazonaws&logoColor=white)](https://aws.amazon.com)
-[![GCP](https://img.shields.io/badge/GCP-4285f4?style=flat-square&logo=googlecloud&logoColor=white)](https://cloud.google.com)
-[![Azure](https://img.shields.io/badge/Azure-0078d4?style=flat-square&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com)
-[![Docker](https://img.shields.io/badge/Docker-2496ed?style=flat-square&logo=docker&logoColor=white)](https://docker.com)
-[![Kubernetes](https://img.shields.io/badge/Kubernetes-326ce5?style=flat-square&logo=kubernetes&logoColor=white)](https://kubernetes.io)
+![OCI](https://img.shields.io/badge/OCI-f80000?style=flat-square&logo=oracle&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-232f3e?style=flat-square&logo=amazonaws&logoColor=white) ![GCP](https://img.shields.io/badge/GCP-4285f4?style=flat-square&logo=googlecloud&logoColor=white) ![Azure](https://img.shields.io/badge/Azure-0078d4?style=flat-square&logo=microsoftazure&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ed?style=flat-square&logo=docker&logoColor=white) ![Kubernetes](https://img.shields.io/badge/Kubernetes-326ce5?style=flat-square&logo=kubernetes&logoColor=white)
 
 **Data & ML Stack**
 
-[![Kafka](https://img.shields.io/badge/Kafka-231f20?style=flat-square&logo=apachekafka&logoColor=white)](https://kafka.apache.org)
-[![Qdrant](https://img.shields.io/badge/Qdrant-dc2626?style=flat-square)](https://qdrant.tech)
-[![MLflow](https://img.shields.io/badge/MLflow-0194e2?style=flat-square)](https://mlflow.org)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-ff6f00?style=flat-square&logo=tensorflow&logoColor=white)](https://tensorflow.org)
-[![PyTorch](https://img.shields.io/badge/PyTorch-ee4c2c?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org)
-[![HuggingFace](https://img.shields.io/badge/Hugging%20Face-ffd21e?style=flat-square)](https://huggingface.co)
+![Kafka](https://img.shields.io/badge/Kafka-231f20?style=flat-square&logo=apachekafka&logoColor=white) ![Qdrant](https://img.shields.io/badge/Qdrant-dc2626?style=flat-square) ![MLflow](https://img.shields.io/badge/MLflow-0194e2?style=flat-square) ![TensorFlow](https://img.shields.io/badge/TensorFlow-ff6f00?style=flat-square&logo=tensorflow&logoColor=white) ![PyTorch](https://img.shields.io/badge/PyTorch-ee4c2c?style=flat-square&logo=pytorch&logoColor=white) ![HuggingFace](https://img.shields.io/badge/HuggingFace-ffd21e?style=flat-square)
 
 ---
 
-## By the Numbers
+## By The Numbers
 
 | | |
 |---|---|
-| **17+** years production AI/ML experience | **40+** person global org (US + India) |
+| **17+** years engineering leadership | **13** open-source reference architecture repos |
 | **9,000+** customers at day-one platform launch | **600+** enterprise clients in production |
-| **50+** countries served | **6** production ML models shipped at GA |
-| **3,000+** active sales users on agentic platform | **16** MCP adapters across 5 vendor slots |
+| **50+** countries served | **6** production ML models at GA |
 | **30%** renewal cycle compression | **28%** quote processing efficiency improvement |
-| **2x** internal promotion rate increase | **32%** incident volume reduction |
+
+*Note: org size and a couple of internal leadership metrics are intentionally left off this table pending a consistency pass across GitHub / LinkedIn / resume — see note below.*
 
 ---
 
 ## Certifications
 
-[![Deep Learning](https://img.shields.io/badge/Deep%20Learning%20Specialization-DeepLearning.AI%20%2F%20Coursera-0056d2?style=flat-square&logo=coursera&logoColor=white)](https://www.coursera.org/account/accomplishments/specialization/certificate/PH7HB89PB4H2)
-
-[![MLOps](https://img.shields.io/badge/ML%20Engineering%20for%20Production%20(MLOps)-DeepLearning.AI%20%2F%20Coursera-0056d2?style=flat-square&logo=coursera&logoColor=white)](https://www.coursera.org/account/accomplishments/specialization/certificate/Z63Q5RRGD92F)
-
----
+[![Deep Learning Specialization](https://img.shields.io/badge/DeepLearning.AI-Deep%20Learning%20Specialization-0056d2?style=flat-square&logo=coursera&logoColor=white)](https://www.coursera.org/account/accomplishments/specialization/certificate/PH7HB89PB4H2)
+[![MLOps Specialization](https://img.shields.io/badge/DeepLearning.AI-MLOps%20Specialization-0056d2?style=flat-square&logo=coursera&logoColor=white)](https://www.coursera.org/account/accomplishments/specialization/certificate/Z63Q5RRGD92F)
 
 ## Education
 
@@ -305,4 +133,10 @@ make dev-ui                       # UI  → http://localhost:5173
 
 ---
 
+**Where AI needs to move from a feature to core business infrastructure.**
+
+Industries: Enterprise SaaS · AI-native companies · Revenue/GTM platforms · CDPs · B2B tech · Agentic AI infrastructure
+
 *I build the platforms that make AI commercially accountable — not just technically impressive.*
+
+[![LinkedIn](https://img.shields.io/badge/Connect%20on%20LinkedIn-0a66c2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/saralabiswal) [![Email](https://img.shields.io/badge/Email-saralabiswal%40gmail.com-ea4335?style=flat-square&logo=gmail&logoColor=white)](mailto:saralabiswal@gmail.com)
