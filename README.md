@@ -1,12 +1,13 @@
 # Sarala Biswal
 
-**VP / Director of AI Engineering · Agentic AI · MCP · MLOps · CPQ · Quote-to-Cash · Hands-On Technical Leader**
+**VP / Director of AI Engineering · AgentOps & Enterprise Agentic AI · AI/ML Platforms at Scale · CPQ · Quote-to-Cash · Hands-On Technical Leader**
 
 *Belmont, CA · He/Him*
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-saralabiswal-0a66c2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/saralabiswal)
 [![Email](https://img.shields.io/badge/Email-saralabiswal%40gmail.com-ea4335?style=flat-square&logo=gmail&logoColor=white)](mailto:saralabiswal@gmail.com)
 [![Blog](https://img.shields.io/badge/Blog-nlpml.ai-3b82f6?style=flat-square)](https://nlpml.ai)
+[![Book](https://img.shields.io/badge/Book-Production%20AI%20Architecture-333333?style=flat-square&logo=amazon&logoColor=white)](https://www.amazon.com/dp/B0H7PX31SY)
 [![Profile Views](https://komarev.com/ghpvc/?username=saralabiswal&style=flat-square&color=3b82f6&label=Profile+Views)](https://github.com/saralabiswal)
 
 ---
@@ -83,7 +84,7 @@ Domain-independent L0–L9 platform for regulated AI decisions — insurance, le
 ### Book
 | Repo | What it is |
 |---|---|
-| [production-ai-architecture](https://github.com/saralabiswal/production-ai-architecture) | Companion code for *Production AI Architecture* (Amazon) — gateways, RAG, agent workflows, evaluation harnesses, governance pipelines |
+| [production-ai-architecture](https://github.com/saralabiswal/production-ai-architecture) | Companion code for [*Production AI Architecture*](https://www.amazon.com/dp/B0H7PX31SY) (Kindle · [paperback](https://www.amazon.com/dp/B0H7P2R48Y) · [hardcover](https://www.amazon.com/dp/B0H7B3MM2P)) — gateways, RAG, agent workflows, evaluation harnesses, governance pipelines |
 
 ---
 
@@ -116,8 +117,6 @@ Domain-independent L0–L9 platform for regulated AI decisions — insurance, le
 | **50+** countries served | **6** production ML models at GA |
 | **30%** renewal cycle compression | **28%** quote processing efficiency improvement |
 
-*Note: org size and a couple of internal leadership metrics are intentionally left off this table pending a consistency pass across GitHub / LinkedIn / resume — see note below.*
-
 ---
 
 ## Certifications
@@ -137,6 +136,6 @@ Domain-independent L0–L9 platform for regulated AI decisions — insurance, le
 
 Industries: Enterprise SaaS · AI-native companies · Revenue/GTM platforms · CDPs · B2B tech · Agentic AI infrastructure
 
-*I build the platforms that make AI commercially accountable — not just technically impressive.*
+**I build the platforms that make AI commercially accountable — not just technically impressive.**
 
 [![LinkedIn](https://img.shields.io/badge/Connect%20on%20LinkedIn-0a66c2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/saralabiswal) [![Email](https://img.shields.io/badge/Email-saralabiswal%40gmail.com-ea4335?style=flat-square&logo=gmail&logoColor=white)](mailto:saralabiswal@gmail.com)
