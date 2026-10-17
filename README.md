@@ -1,6 +1,6 @@
 # Sarala Biswal
 
-**VP / Director of AI Engineering · AgentOps & Enterprise Agentic AI · AI/ML Platforms at Scale · CPQ · Quote-to-Cash · Hands-On Technical Leader**
+**VP / Senior Director of AI Engineering · AgentOps & Enterprise Agentic AI · AI/ML Platforms at Scale · CPQ · Quote-to-Cash · Hands-On Technical Leader**
 
 *Belmont, CA · He/Him*
 
